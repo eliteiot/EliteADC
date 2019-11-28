@@ -21,7 +21,8 @@ Some main features of our ADC IIOT Module are:
 * Easy to get connected and sampling
 * On-board temperature measurements with the HDC1080 Temp and humidity sensor
 
-![Image of EliteADC](https://www.elitewa.com.au/img/ADC-01-400px.jpeg)
 More Information - [ADC Input 18bit 8ch IIOT Module](https://www.elitewa.com.au/adc-input-board.html)
 To Purchase - [ADC Input 18bit 8ch IIOT Module](https://www.eliteiot.net/shop/iot-devices-c-3/adc-input-board-i2c-8-channel-18bit-adc-p-8)
+![Image of EliteADC](https://www.elitewa.com.au/img/ADC-01-400px.jpeg)
+
 

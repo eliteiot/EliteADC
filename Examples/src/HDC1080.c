@@ -81,7 +81,7 @@ float HDC1080_Temp(void) {
 		exit(1);
 	}
 
-	delay(HDC1080_DELAY);   									// waiting for measurement
+	usleep(HDC1080_DELAY);   									// waiting for measurement
 
 	if (read(fdt, buf, 4) != 4) {								// Read back data into buf[]
 		printf("Unable to read from i2c HDC1080\n");
@@ -104,7 +104,7 @@ float HDC1080_Hum(void) {
 		exit(1);
 	}
 
-	delay(HDC1080_DELAY);   									// waiting for measurement
+	usleep(HDC1080_DELAY);   									// waiting for measurement
 
 	if (read(fdt, buf, 4) != 4) {								// Read back data into buf[]
 		printf("Unable to read from i2c HDC1080\n");

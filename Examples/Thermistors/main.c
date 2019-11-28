@@ -26,6 +26,7 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include <math.h>
 
 #include "../src/HDC1080.h"
 #include "../src/MCP3424.h"
