@@ -49,7 +49,7 @@ void HDC1080_Init(void) {
 	
 	buf[0] = 0xFE;												// This is the register we wish to read from
 	
-	if ((write(fdt, buf, 2)) != 2) {							// Send register to read from
+	if ((write(fdt, buf, 1)) != 1) {							// Send register to read from
 		printf("Error writing to i2c HDC1080 -B\n");
 		exit(1);
 	}
