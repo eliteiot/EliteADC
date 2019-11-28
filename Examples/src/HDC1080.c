@@ -40,30 +40,31 @@ void HDC1080_Init(void) {
 	buf[0] = 0x02;												// Commands to enable the sensor
 	buf[1] = 0x00;
 	
-	if ((write(fdt, buf, 2)) != 2) {								// Write commands to the i2c port
-		printf("Error writing to i2c HDC1080\n");
+	if ((write(fdt, buf, 2)) != 2) {							// Write commands to the i2c port
+		printf("Error writing to i2c HDC1080 -A\n");
 		exit(1);
 	}
 	
 	usleep(HDC1080_DELAY);										// this sleep waits for the ping to come back
 	
-	buf[0] = 0xFE;
-    buf[1] = 0x00;												// This is the register we wish to read from
+	buf[0] = 0xFE;												// This is the register we wish to read from
 	
 	if ((write(fdt, buf, 2)) != 2) {							// Send register to read from
-		printf("Error writing to i2c HDC1080\n");
+		printf("Error writing to i2c HDC1080 -B\n");
 		exit(1);
 	}
 	
+	usleep(HDC1080_DELAY);
+
 	if (read(fdt, buf, 4) != 4) {								// Read back data into buf[]
-		printf("Unable to read from i2c HDC1080\n");
+		printf("Unable to read from i2c HDC1080 -A\n");
 		exit(1);
 	}
 
-    int man = (buf[1] << 8) + buf[0];
+    int man = (buf[0] << 8) + buf[1];
 
     if (man == 21577) {
-        printf("HDC1080 Ready\n");   /*read manufacturer*/
+        printf("HDC1080 Ready\n");   							// read manufacturer
     } else {
         printf("HDC1080 Config ERROR - %d\n", man);
     }
@@ -77,18 +78,18 @@ float HDC1080_Temp(void) {
 	buf[0] = 0x00;												// This is the register we wish to read from
 	
 	if ((write(fdt, buf, 1)) != 1) {							// Send register to read from
-		printf("Error writing to i2c HDC1080\n");
+		printf("Error writing to i2c HDC1080 -T\n");
 		exit(1);
 	}
 
 	usleep(HDC1080_DELAY);   									// waiting for measurement
 
 	if (read(fdt, buf, 4) != 4) {								// Read back data into buf[]
-		printf("Unable to read from i2c HDC1080\n");
+		printf("Unable to read from i2c HDC1080 -T\n");
 		exit(1);
 	}
 
-	temp = (buf[1] << 8) + buf[0];
+	temp = (buf[0] << 8) + buf[1];
 
   	return ((float)(temp)/(65536.0)*165.0-40.0);   				// converting reading to degrees celsius
 }
@@ -100,18 +101,18 @@ float HDC1080_Hum(void) {
 	buf[0] = 0x01;												// This is the register we wish to read from
 	
 	if ((write(fdt, buf, 1)) != 1) {							// Send register to read from
-		printf("Error writing to i2c HDC1080\n");
+		printf("Error writing to i2c HDC1080 -H\n");
 		exit(1);
 	}
 
 	usleep(HDC1080_DELAY);   									// waiting for measurement
 
 	if (read(fdt, buf, 4) != 4) {								// Read back data into buf[]
-		printf("Unable to read from i2c HDC1080\n");
+		printf("Unable to read from i2c HDC1080 -H\n");
 		exit(1);
 	}
 
-	humidity = (buf[1] << 8) + buf[0];
+	humidity = (buf[0] << 8) + buf[1];
 
   	return ((float)(humidity)/(65536.0)*100.0);   				// converting reading to RH%
 }

@@ -28,7 +28,8 @@ int adc_fd;
 
 void MCP3424Init(void) {
 
- //Code can be put here to set up ADC gain, etc.
+    //Code can be put here to set up ADC gain, etc.
+    printf("ADC Modules Ready\n");
 
 }
 

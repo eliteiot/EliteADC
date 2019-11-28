@@ -32,11 +32,10 @@
 #include <unistd.h>
 
 #define HDC1080_ADD     0x40
-#define HDC1080_DELAY   50
+#define HDC1080_DELAY   50000
 
 void HDC1080_Init(void);
 float HDC1080_Temp(void);
 float HDC1080_Hum(void);
-
 
 #endif // HDC1080_H
