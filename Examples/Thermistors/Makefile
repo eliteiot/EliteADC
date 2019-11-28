@@ -31,10 +31,10 @@ EXECUTABLE=Thermistor
 all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) -g $(OBJECTS) -o $@ $(LDFLAGS)
+	$(CC) -g $(addprefix $(OBJDIR)/,$(notdir $(OBJECTS))) -o $@ $(LDFLAGS)
 
 $(OBJDIR)/%.o: %.c
-	$(CC) -g $(CFLAGS) $(DEFINES) $< -o $@
+	$(CC) -g $(CFLAGS) $(DEFINES) $< -o $(OBJDIR)/$(notdir $@)
 
 clean:
-	rm -f $(OBJECTS) $(EXECUTABLE)
+	rm -f $(addprefix $(OBJDIR)/,$(notdir $(OBJECTS))) $(EXECUTABLE)

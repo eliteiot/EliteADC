@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
     for (int i = 0; i < ADC_CHANNELS; i++)
     {
         float adc_reading = MCP3424Read(ADC_2, i);
-        float r2, log_r2, T, Tc, Tf;
+        float r2, log_r2, T, Tc;
 
         r2 = R1 * (ADC_BITS / adc_reading - 1.0);
         log_r2 = log(r2);
