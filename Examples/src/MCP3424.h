@@ -25,11 +25,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define NUM_ADCS            2
+#define NUM_ADCS            2               // 2x ADC Chips on the IIOT Module
 #define ADC_1               0
 #define ADC_2               1
 
-#define ADC_CHANNELS        4
+#define ADC_CHANNELS        4               // 4 Channels per ADC chip
 #define LEN                 256
 
 void MCP3424Init(void);

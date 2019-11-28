@@ -31,12 +31,11 @@
 #include "../src/HDC1080.h"
 #include "../src/MCP3424.h"
 
-#define ADC_BITS        4096
-#define R1              100000.0
-#define C1              1.009249522e-03
-#define C2              2.378405444e-04
-#define C3              2.378405444e-04
-
+#define ADC_BITS            16384                       // ADC set to 14bit Resolution (60 samples per second)
+#define R1                  100000.0                    // External resistor value
+#define THERMISTOR          100000.0                    // Thermistor resistance
+#define TEMPNOMINAL         25                          // Thermistor calibration temp
+#define BCOEFFICIENT        3950
 
 
 int main(int argc, char *argv[])
@@ -53,15 +52,17 @@ int main(int argc, char *argv[])
 
     for (int i = 0; i < ADC_CHANNELS; i++)
     {
-        float adc_reading = MCP3424Read(ADC_2, i);
-        float r2, log_r2, T, Tc;
+        float adc_reading = R1 / (ADC_BITS / MCP3424Read(ADC_2, i) - 1.0);
+        
+        float steinhart;
+        steinhart = adc_reading / THERMISTOR;        // (R/Ro)
+        steinhart = log(steinhart);                  // ln(R/Ro)
+        steinhart /= BCOEFFICIENT;                   // 1/B * ln(R/Ro)
+        steinhart += 1.0 / (TEMPNOMINAL + 273.15);   // + (1/To)
+        steinhart = 1.0 / steinhart;                 // Invert
+        steinhart -= 273.15;                         // convert to C
 
-        r2 = R1 * (ADC_BITS / adc_reading - 1.0);
-        log_r2 = log(r2);
-        T = (1.0 / (C1 + C2*log_r2 + C3*log_r2*log_r2*log_r2));
-        Tc = T - 273.15;
-
-        printf("Temp %d : %.3f degC  -  ADC Raw val : %.3f\n", i, Tc, adc_reading);
+        printf("Temp %d : %.3f degC  -  ADC Raw val : %.3f\n", i, steinhart, adc_reading);
     }
     
     return 0;

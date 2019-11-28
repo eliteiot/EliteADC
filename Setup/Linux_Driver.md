@@ -1,6 +1,12 @@
 
 This is how to set up the ADC Module to use the native linux drivers on a Raspberry Pi (This should also work for most linux computers)
 
+Please note this must be run as ROOT the preferred way is to use
+
+    sudo su
+
+This will switch you to the root user to run the following commands.
+
 Enable the ADC Linux Driver Module (Please note that the ADC chips are MCP3424 which are included in this Linux Driver)
 
 `modprobe mcp3422`
@@ -25,13 +31,15 @@ You can set the sampling frquency to 60 samples per second with the following co
 
 If you would like to set the gain of the ADC's you can use the following commands. (please note the gain can be set per channel of the ADC)
 
-    echo 0.000125000 > /dev/i2cadc0/in_voltage0_scale
-    echo 0.000125000 > /dev/i2cadc0/in_voltage1_scale
-    echo 0.000125000 > /dev/i2cadc0/in_voltage2_scale
-    echo 0.000125000 > /dev/i2cadc0/in_voltage3_scale
+    echo 0.000250000 > /dev/i2cadc0/in_voltage0_scale
+    echo 0.000250000 > /dev/i2cadc0/in_voltage1_scale
+    echo 0.000250000 > /dev/i2cadc0/in_voltage2_scale
+    echo 0.000250000 > /dev/i2cadc0/in_voltage3_scale
 
-    echo 0.000125000 > /dev/i2cadc1/in_voltage0_scale
-    echo 0.000125000 > /dev/i2cadc1/in_voltage1_scale
-    echo 0.000125000 > /dev/i2cadc1/in_voltage2_scale
-    echo 0.000125000 > /dev/i2cadc1/in_voltage3_scale
+    echo 0.000250000 > /dev/i2cadc1/in_voltage0_scale
+    echo 0.000250000 > /dev/i2cadc1/in_voltage1_scale
+    echo 0.000250000 > /dev/i2cadc1/in_voltage2_scale
+    echo 0.000250000 > /dev/i2cadc1/in_voltage3_scale
 
+## Please note these settings will reset after each boot
+if you would like to make them permanent create a script in /etc/init.d to load these settings every boot
